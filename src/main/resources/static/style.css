@@ -1,0 +1,32 @@
+body{
+  background-color:#EEEEEE;
+}
+h1{
+  color:black;
+  text-align:start;
+  font-family:"楷体";
+  font-size: 30px;
+}
+h2{
+  color:black;
+  text-align:start;
+  font-family:"楷体";
+  font-size: 20px;
+}
+h3{
+  color:black;
+  text-align:start;
+  font-family:"楷体";
+  font-size: 15px;
+}
+p{
+  font-family:"楷体";
+  font-size:18px;
+}
+.domain{
+  font-family: "Times New Roman";
+}
+.abstract{
+  font-family: "Times New Roman";
+  font-size:15px;
+}

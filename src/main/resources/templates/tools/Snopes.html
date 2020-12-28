@@ -1,0 +1,65 @@
+
+<!--title-->
+<div>
+    <h2><b>Snopes</b></h2>
+    <p><a href="https://www.snopes.com" target="_blank" rel="noopener noreferrer">https://www.snopes.com</a></p>
+    <p class="abstract">Snopes可以为您提供对事实的判断和最受大众关注的消息。</p>
+    <br/>
+</div>
+<!--Search-->
+<div class="layui-row">
+    <div class="layui-col main">
+        <h2>Searching in Snopes</h2>
+        <form class="layui-form" filter="default_filter" action="">
+        <div class="layui-form-item">
+            <div class="layui-form-mid layui-word-aux">Please input what you want to search, Snopes will return relavant news.</div>
+            <input type="text" name="snopes_searching_text" required  lay-verify="required" placeholder="e.g.Global warming" autocomplete="on" class="layui-input">
+            <button class="layui-btn layui-bg-blue" style="margin-top: 10px; background-color: layui-bg-blue;" lay-submit lay-filter="formDemo">Search</button>
+            <br/>
+            <p><h3 id="snopes_searching_title" hidden>Seaching results</h3></p>
+            <div><p id="snopes_searching"></p></div>
+        </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+        form.on('submit(formDemo)', function(data){
+            $("#snopes_searching").text("Please wait a moment...");
+            $.ajax({ 
+				url:'/tools/Snopes/searching',   
+				method:'post', 
+				data:data.field,
+				//dataType:'JSON',
+				dataType:'text',
+				success:function(receive){   
+                    $("#snopes_searching_title").show();
+                    $("#snopes_searching").html(receive);
+				},
+                error:function(){
+                    $("#snopes_searching").text("Error occurs");
+                }
+			});
+            return false;
+        });
+    });
+</script>
+<script>
+    let layer;
+    layui.use('layer', function(){
+        layer = layui.layer;
+    });
+    function toUrl(){
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.2,
+            content: '<iframe src="http://www.baidu.com/" width="800px" frameborder="0" height="600px"></iframe>',
+            area: ['800px', '600px'],
+        });
+    }
+</script>

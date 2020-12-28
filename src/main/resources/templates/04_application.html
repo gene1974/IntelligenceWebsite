@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>网络开源情报平台 --新一代网络技术与应用实验室</title>
+    <link rel="stylesheet" href="./Frame/layui/css/layui.css">
+    <link rel="stylesheet" href="./style.css" type="text/css"/>
+    <link rel="stylesheet" href="./Frame/semantic.min.css" type="text/css"/>
+    <script src="./Frame/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+
+<!--导航-->
+<script>
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+</script>
+<ul class="layui-nav layui-bg-blue" lay-filter="">
+<li class="layui-nav-item"><a href="/home">首页</a></li>
+    <li class="layui-nav-item"><a href="/tools">开源情报工具</a></li>
+    <li class="layui-nav-item"><a href="/database">开源情报知识库</a></li>
+    <li class="layui-nav-item"><a href="/service">开源情报服务</a></li>
+    <li class="layui-nav-item layui-this"><a href="">开源情报应用</a></li>
+    <li class="layui-nav-item"><a href="/contact">联系我们</a></li>
+</ul>
+
+<div class="ui grid" style="padding: 30px 50px 20px 20px">
+    <div class="four wide column">
+        <div class="ui vertical fluid tabular menu" id="itemDiv">
+            <a class="item active yellow" onclick="">
+                <i class="ui chevron circle right icon"></i>台海情报分析
+            </a>
+            <a class="item" onclick="">
+                <i class="ui chevron circle right icon"></i>科技情报分析
+            </a>
+            <a class="item" onclick="">
+                <i class="ui chevron circle right icon"></i>热点事件研判
+            </a>
+        </div>
+    </div>
+    <div class="twelve wide stretched column" style="height: 400px">
+        <div class="ui segment" id="loadDiv">
+        </div>
+    </div>
+</div>
+<script>
+    let $;
+    layui.use('jquery', function () {
+        $ = layui.$;
+        $(`#itemDiv a`).click(function () {
+            $(this).siblings('a').removeClass('active');
+            $(this).addClass('active yellow ');
+        })
+    });
+</script>
+</body>
+</html>
