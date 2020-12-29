@@ -22,12 +22,16 @@ class Snopes(Crawler):
 
     def searching_parse(self, webpage):
         soup = BeautifulSoup(webpage, 'lxml')
+        #result_list = soup.select('div#result-list > div.ais-hits > div.ais-hits--item > a')
         title_list = soup.select('div#result-list > div.ais-hits > div.ais-hits--item > a > .heading')
+        link_list = soup.select('div#result-list > div.ais-hits > div.ais-hits--item > a')
         abstract_list = soup.select('div#result-list > div.ais-hits > div.ais-hits--item > a > .subheading')
         result = ''
         for i in range(len(title_list)):
-            title, abstract = title_list[i].get_text(), abstract_list[i].get_text().replace('\t', '').replace('\n', '')
-            result += ('<h3>' + title + '</h3>\n<p>' + abstract + '</p>\n')
+            title = title_list[i].get_text()
+            link = link_list[i].get("href")
+            abstract = abstract_list[i].get_text().replace('\t', '').replace('\n', '')
+            result += ('<a style="color:black;" target="_blank" href="' + link + '"><h3>' + title + '</h3></a>\n<p>' + abstract + '</p>\n')
         return result
 
 if __name__ == '__main__':

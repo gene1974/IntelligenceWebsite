@@ -22,15 +22,6 @@ public class IntelligenceApplication {
 		SpringApplication.run(IntelligenceApplication.class, args);
 	}
 
-    @GetMapping("/hello")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return String.format("Hello %s!", name);
-    }
-    @RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public String show(@PathVariable("id") Integer id) {
-		return "success";
-	}
-
     @RequestMapping(value = "home", method = RequestMethod.GET)
     public String process_controller_home() {
         System.out.println("Welcome!");
@@ -44,8 +35,7 @@ public class IntelligenceApplication {
     }
 
     @RequestMapping(value = "tools/Snopes", method = RequestMethod.GET)
-    public String init_tools_snopes(HashMap<String,Object> map) {
-        //map.put("name", "Snopes");
+    public String init_tools_snopes() {
         return "tools/Snopes";
     }
     @RequestMapping(value = "tools/Snopes/searching", method = RequestMethod.POST)
