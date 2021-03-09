@@ -1,7 +1,49 @@
-<div>
-    <h2><b>Melissa</b></h2>
-    <p><a class="domain" href="https://www.melissa.com/v2/lookups/propertyviewer/zipcode/">https://www.melissa.com/v2/lookups/propertyviewer/zipcode/</a>
-    </p>
-    <br/>
-    <p class="abstract">Melissa可以为您提供美国房产的相关属性信息。</p>
+<div style="padding-bottom:15px">
+    <a href="https://www.melissa.com/v2/lookups/propertyviewer/zipcode/" target="_blank" rel="noopener noreferrer" title="https://www.melissa.com/v2/lookups/propertyviewer/zipcode/"><h2><b>Melissa</b></h2></a>
 </div>
+
+<div class="layui-row" style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <div style="padding:15px;"><p>Melissa可以根据邮政编码为您查询地图。</p></div>
+    </div>
+</div>
+
+<div class="layui-row" id="melissa_zipcode_main" style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">Zipcode</h3>
+        <p style="padding-left:15px;">Find area by zipcode.<br/>根据输入的<b>美国</b>邮政编码查询地图。</p>
+        <form class="layui-form" filter="default_filter" action="" style="padding-left:15px;">
+            <div class="layui-form-item">
+                <div class="layui-form-mid layui-word-aux">Please input an American zipcode.</div>
+                <input type="text" name="melissa_zipcode" required  lay-verify="required" placeholder="e.g.02138" autocomplete="on" class="layui-input">
+                <button class="layui-btn layui-bg-blue" style="margin-top: 10px;" lay-submit lay-filter="melissa_zipcode_button">Search</button>
+                <div id="melissa_map" style="margin-top: 10px;"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+    layui.use('form', function(){
+        var form = layui.form;
+        form.on('submit(melissa_zipcode_button)', function(data){
+            $("#melissa_map").text("Please wait a moment...");
+            $.ajax({ 
+                url:'/tools/Melissa/zipcode',   
+                method:'post', 
+				data:data.field,
+                dataType:'text',
+                success:function(receive){   
+                    $("#melissa_map").html(receive);
+                },
+                error:function(){
+                    $("#melissa_map").text("Error occurs in java service.");
+                }
+			});
+            return false;
+        });
+    });
+</script>

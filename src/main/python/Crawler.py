@@ -2,8 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 class Crawler(object):
-    def __init__(self):
-        pass
     def create_browser(self):
         chrome_options=Options()
         chrome_options.add_argument('--headless')
@@ -22,5 +20,15 @@ class Crawler(object):
         browser.add_cookie(cookie)
     def save_screenshot(self, browser):
         browser.save_screenshot("no_windows.png")
-    def get_page(self, browser):
+    def return_page(self, browser):
         return browser.page_source
+
+
+if __name__ == '__main__':
+    test_url = 'https://snopes.com'
+    test_crawler = Crawler()
+    test_browser = test_crawler.create_browser()
+    test_browser.get(test_url)
+    page = test_browser.page_source
+    print(page)
+    test_crawler.save_screenshot(test_browser)

@@ -1,86 +1,113 @@
 
 <!--title-->
-<div>
-    <a href="https://www.snopes.com" target="_blank" rel="noopener noreferrer"><h2><b>Snopes</b></h2></a>
-    <p class="abstract">Snopes可以为您提供对事实的判断和最受大众关注的消息。</p>
-    <br/>
+<div style="padding-bottom:15px">
+    <a href="https://www.snopes.com" target="_blank" rel="noopener noreferrer" title="https://www.snopes.com"><h2><b>Snopes</b></h2></a>
 </div>
+
+<div class="layui-row" style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <div style="padding:15px;"><p>Snopes is the internet’s definitive fact-checking resource.</p></div>
+    </div>
+</div>
+
 <!--subnavigation-->
-<script>
-</script>
-<span class="layui-breadcrumb" lay-separator="" style="visibility: visible; margin-top: 5px;">
-    <button type="button" onclick="Searching()" id="snopes_search_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary">Searching</button>
-    <button type="button" onclick="Latest()"    id="snopes_latest_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary">Latest</button>
-    <button type="button" onclick="Hot()"       id="snopes_hot_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary">hot 50</button>
-    <button type="button" onclick="Fact()"      id="snopes_fact_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary">Fact Checks</button>
-    <button type="button" onclick="Collections()" id="snopes_collection_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary">Collections</button>
-    <button type="button" onclick="News()"      id="snopes_news_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary">News</button>
-    <button type="button" onclick="Archives()"  id="snopes_archive_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary">Archives</button>
+<div style="padding-top:15px; padding-bottom:15px;">
+<span class="layui-breadcrumb" lay-separator="" style="visibility: visible;">
+    <button type="button" onclick="Latest()"    id="snopes_latest_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"     title="来自Snopes编辑团队的最新事实调查和原始报告。">Latest</button>
+    <button type="button" onclick="Hot()"       id="snopes_hot_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"        title="Snopes读者正在查看的最热流言。">hot 50</button>
+    <button type="button" onclick="Fact()"      id="snopes_fact_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"       title="Snopes最近研究的谣言和可疑说法">Fact Checks</button>
+    <button type="button" onclick="Collections()" id="snopes_collection_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary" title="Snopes文章集合">Collections</button>
+    <button type="button" onclick="News()"      id="snopes_news_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"       title="Snopes和其他人的原始报告。">News</button>
+    <button type="button" onclick="Archives()"  id="snopes_archive_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"    title="Snopes档案馆">Archives</button>
+    <button type="button" onclick="Searching()" id="snopes_search_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"     title="搜索Snopes上的文章">Searching</button>
 </span>
+</div>
 
 <!--searching-->
-<div class="layui-row" id="snopes_searching_main">
-    <div class="layui-col main">
-        <br/>
-        <h3>Searching in Snopes</h3>
-        <form class="layui-form" filter="default_filter" action="">
+<div class="layui-row" id="snopes_searching_main" hidden style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">Searching in Snopes</h3>
+        <p style="padding-left:15px;">Search Snopes.<br/>搜索Snopes上的文章。</p>
+        <form class="layui-form" filter="default_filter" action="" style="padding-left:15px;">
             <div class="layui-form-item">
-                <div class="layui-form-mid layui-word-aux">Please input what you want to search, Snopes will return relavant news.</div>
+                <div class="layui-form-mid layui-word-aux">Please input what you want to search on Snopes.</div>
                 <input type="text" name="snopes_searching_text" required  lay-verify="required" placeholder="e.g.Global warming" autocomplete="on" class="layui-input">
-                <button class="layui-btn layui-bg-blue" style="margin-top: 10px;" lay-submit lay-filter="formDemo">Search</button>
-                <br/>
-                <h3 id="snopes_searching_title" hidden>Seaching results</h3>
-                <div><p id="snopes_searching"></p></div>
+                <button class="layui-btn layui-bg-blue" style="margin-top: 10px;" lay-submit lay-filter="snopes_searching_button">Search</button>
+                <div id="snopes_searching" style="margin-top: 10px;"></div>
             </div>
         </form>
     </div>
 </div>
 
 <!--latest-->
-<div class="layui-row" id="snopes_latest_main" hidden>
-    <div class="layui-col main">
-        <br/>
-        <h3>Latest in Snopes</h3>
+<div class="layui-row" id="snopes_latest_main" style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">Latest in Snopes</h3>
+        <p style="padding-left:15px;">The latest fact checks and original reporting from Snopes’ editorial team.<br/>来自Snopes编辑团队的最新事实调查和原始报告。</p>
+        <div style="padding-left:15px; padding-bottom: 15px;">
+            <button onclick="process_latest()" id="snopes_latest_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get Latest!</button>
+            <div id="snopes_latest" style="margin-top: 10px;"></div>
+        </div>
     </div>
 </div>
 
 <!--hot-->
-<div class="layui-row" id="snopes_hot_main" hidden>
-    <div class="layui-col main">
-        <br/>
-        <h3>Hot 50 in Snopes</h3>
+<div class="layui-row" id="snopes_hot_main" hidden style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">Hot 50 in Snopes</h3>
+        <p style="padding-left:15px;">The top rumors Snopes readers are checking out right now.<br/>Snopes读者正在查看的最热流言。</p>
+        <div style="padding-left:15px; padding-bottom: 15px;">
+            <button onclick="process_hot()" id="snopes_hot_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get Hot!</button>
+            <div id="snopes_hot" style="margin-top: 10px;"></div>
+        </div>
     </div>
 </div>
 
 <!--fact-->
-<div class="layui-row" id="snopes_fact_main" hidden>
-    <div class="layui-col main">
-        <br/>
-        <h3>Fact Check</h3>
+<div class="layui-row" id="snopes_fact_main" hidden style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">Fact Check</h3>
+        <p style="padding-left:15px;">Rumors and questionable claims we have researched recently.<br/>Snopes最近研究的谣言和可疑说法。</p>
+        <div style="padding-left:15px; padding-bottom: 15px;">
+            <button onclick="process_fact()" id="snopes_fact_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get fact!</button>
+            <div id="snopes_fact" style="margin-top: 10px;"></div>
+        </div>
     </div>
 </div>
 
 <!--collections-->
-<div class="layui-row" id="snopes_collections_main" hidden>
-    <div class="layui-col main">
-        <br/>
-        <h3>Collections</h3>
+<div class="layui-row" id="snopes_collections_main" hidden style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">Collections</h3>
+        <p style="padding-left:15px;">Facts are always stronger in groups.<br/>Snopes文章合集。</p>
+        <div style="padding-left:15px; padding-bottom: 15px;">
+            <button onclick="process_collections()" id="snopes_collections_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get Collections!</button>
+            <div id="snopes_collections" style="margin-top: 10px;"></div>
+        </div>
     </div>
 </div>
 
 <!--news-->
-<div class="layui-row" id="snopes_news_main" hidden>
-    <div class="layui-col main">
-        <br/>
-        <h3>News in Snopes</h3>
+<div class="layui-row" id="snopes_news_main" hidden style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">News in Snopes</h3>
+        <p style="padding-left:15px;">Original reporting from Snopes and others.<br/>Snopes和其他人的原始报告。</p>
+        <div style="padding-left:15px; padding-bottom: 15px;">
+            <button onclick="process_news()" id="snopes_news_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get News!</button>
+            <div id="snopes_news" style="margin-top: 10px;"></div>
+        </div>
     </div>
 </div>
 
 <!--archives-->
-<div class="layui-row" id="snopes_archives_main" hidden>
-    <div class="layui-col main">
-        <br/>
-        <h3>Archives</h3>
+<div class="layui-row" id="snopes_archives_main" hidden style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">Archives</h3>
+        <p style="padding-left:15px;">Everything of snopes.<br/>Snopes档案馆。</p>
+        <div style="padding-left:15px; padding-bottom: 15px;">
+            <button onclick="process_archives()" id="snopes_archives_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get Archives!</button>
+            <div id="snopes_archives" style="margin-top: 10px;"></div>
+        </div>
     </div>
 </div>
 
@@ -154,8 +181,7 @@
     }
     layui.use('form', function(){
         var form = layui.form;
-        form.on('submit(formDemo)', function(data){
-            $("#snopes_searching_title").hide();
+        form.on('submit(snopes_searching_button)', function(data){
             $("#snopes_searching").text("Please wait a moment...");
             $.ajax({ 
 				url:'/tools/Snopes/searching',   
@@ -163,31 +189,103 @@
 				data:data.field,
 				dataType:'text',
 				success:function(receive){   
-                    $("#snopes_searching_title").show();
                     $("#snopes_searching").html(receive);
 				},
                 error:function(){
-                    $("#snopes_searching").text("Error occurs");
+                    $("#snopes_searching").text("Error occurs in java service.");
                 }
 			});
             return false;
         });
     });
-</script>
-<script>
-    let layer;
-    layui.use('layer', function(){
-        layer = layui.layer;
-    });
-    function toUrl(){
-        layer.open({
-            type: 1,
-            title: false,
-            closeBtn: 1,
-            shadeClose: false,
-            shade: 0.2,
-            content: '<iframe src="http://www.baidu.com/" width="800px" frameborder="0" height="600px"></iframe>',
-            area: ['800px', '600px'],
+    function process_latest(){
+        $("#snopes_latest").text("Please wait a moment...");
+        $.ajax({ 
+            url:'/tools/Snopes/latest',   
+            method:'post', 
+            dataType:'text',
+            success:function(receive){   
+                $("#snopes_latest").html(receive);
+            },
+            error:function(){
+                $("#snopes_latest").text("Error occurs in java service.");
+            }
         });
+        return false;
+    }
+    function process_hot(){
+        $("#snopes_hot").text("Please wait a moment...");
+        $.ajax({ 
+            url:'/tools/Snopes/hot',   
+            method:'post', 
+            dataType:'text',
+            success:function(receive){   
+                $("#snopes_hot").html(receive);
+            },
+            error:function(){
+                $("#snopes_hot").text("Error occurs in java service.");
+            }
+        });
+        return false;
+    }
+    function process_fact(){
+        $("#snopes_fact").text("Please wait a moment...");
+        $.ajax({ 
+            url:'/tools/Snopes/fact',   
+            method:'post', 
+            dataType:'text',
+            success:function(receive){   
+                $("#snopes_fact").html(receive);
+            },
+            error:function(){
+                $("#snopes_fact").text("Error occurs in java service.");
+            }
+        });
+        return false;
+    }
+    function process_collections(){
+        $("#snopes_collections").text("Please wait a moment...");
+        $.ajax({ 
+            url:'/tools/Snopes/collections',   
+            method:'post', 
+            dataType:'text',
+            success:function(receive){   
+                $("#snopes_collections").html(receive);
+            },
+            error:function(){
+                $("#snopes_collections").text("Error occurs in java service.");
+            }
+        });
+        return false;
+    }
+    function process_news(){
+        $("#snopes_news").text("Please wait a moment...");
+        $.ajax({ 
+            url:'/tools/Snopes/news',   
+            method:'post', 
+            dataType:'text',
+            success:function(receive){   
+                $("#snopes_news").html(receive);
+            },
+            error:function(){
+                $("#snopes_news").text("Error occurs in java service.");
+            }
+        });
+        return false;
+    }
+    function process_archives(){
+        $("#snopes_archives").text("Please wait a moment...");
+        $.ajax({ 
+            url:'/tools/Snopes/archives',   
+            method:'post', 
+            dataType:'text',
+            success:function(receive){   
+                $("#snopes_archives").html(receive);
+            },
+            error:function(){
+                $("#snopes_archives").text("Error occurs in java service.");
+            }
+        });
+        return false;
     }
 </script>
