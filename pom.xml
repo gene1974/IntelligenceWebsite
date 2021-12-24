@@ -35,6 +35,27 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
+		<!--grobid-->
+		<dependency>
+			<groupId>org.grobid</groupId>
+			<artifactId>grobid-core</artifactId>
+			<version>0.6.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.grobid.core</groupId>
+		    <artifactId>grobid</artifactId>
+		    <version>0.6.2</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/lib/grobid-core-0.6.2.jar</systemPath>
+		</dependency>
+
+		<!--json-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.73</version>
+		</dependency>
 	</dependencies>
 
 	<build>

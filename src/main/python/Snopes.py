@@ -6,36 +6,46 @@ from urllib.parse import urlencode
 from Crawler import Crawler
 
 class Snopes(Crawler):
-    def __init__(self, argv):
+    def __init__(self):
         super(Snopes, self).__init__()
         self.url = 'https://www.snopes.com/'
-        self.browser = Crawler().create_browser()
         self.headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36'}
         self.dic = {'searching': self.searching, 'latest': self.latest, 'hot': self.hot, 'fact': self.fact, 'collections': self.collections, 'archives': self.archives, 'news': self.news}
         
-        self.process(argv)
-    '''
+    
     def cache(self, argv):
-        file_name = './log/' + tool
-        f = open('./log/' + tool + '_' + time.strftime('%Y%m%d_%H%M%S', time.localtime()), 'w')
-'''
-    def process(self, argv):
         tool = argv[1]
-        #f = open('./log/' + tool + '_' + time.strftime('%Y%m%d_%H%M%S', time.localtime()), 'w')
+        file_name = './result/' + tool
+        if os.path.exists(file_name):
+            f = open(file_name, 'r')
+        else:
+            f = open('./log/' + tool + '_' + time.strftime('%Y%m%d_%H%M%S', time.localtime()), 'w')
+            result = self.process(argv)
+        f.write(result)
+        f.close()
+
+    def parse_argv(self, argv):
+        tool = argv[1]
         if len(argv) > 2:
             text = argv[2]
             result = self.dic[tool](text)
         else:
             result = self.dic[tool]()
         print(result)
-        #f.write(result)
-        #f.close()
+
+    def process(self, tool, text):
+        if text:
+            result = self.dic[tool](text)
+        else:
+            result = self.dic[tool]()
+        print(result)
 
     def request_page(self, url):
         response = requests.get(url = url, headers = self.headers)
         return response.text
     
     def crawl_page(self, url):
+        self.browser = Crawler().create_browser()
         self.browser.get(url)
         search_webpage = self.browser.page_source
         return search_webpage
@@ -206,4 +216,5 @@ if __name__ == '__main__':
     if len(sys.argv) == 1:
         print("Nothing input!")
     else:
-        result = Snopes(sys.argv)
+        snopes = Snopes()
+        snopes.parse_argv(sys.argv)

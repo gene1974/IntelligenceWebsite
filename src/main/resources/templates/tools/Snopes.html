@@ -1,38 +1,38 @@
 
 <!--title-->
 <div style="padding-bottom:15px">
-    <a href="https://www.snopes.com" target="_blank" rel="noopener noreferrer" title="https://www.snopes.com"><h2><b>Snopes</b></h2></a>
+    <a href="https://www.snopes.com" target="_blank" rel="noopener noreferrer" title="https://www.snopes.com"><h2><b>事实检测</b></h2></a>
 </div>
 
 <div class="layui-row" style="padding: 2px; background-color: #F2F2F2;">
     <div class="layui-card">
-        <div style="padding:15px;"><p>Snopes is the internet’s definitive fact-checking resource.</p></div>
+        <div style="padding:15px;"><p>提供事实检测服务。</p></div>
     </div>
 </div>
 
 <!--subnavigation-->
 <div style="padding-top:15px; padding-bottom:15px;">
 <span class="layui-breadcrumb" lay-separator="" style="visibility: visible;">
-    <button type="button" onclick="Latest()"    id="snopes_latest_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"     title="来自Snopes编辑团队的最新事实调查和原始报告。">Latest</button>
-    <button type="button" onclick="Hot()"       id="snopes_hot_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"        title="Snopes读者正在查看的最热流言。">hot 50</button>
-    <button type="button" onclick="Fact()"      id="snopes_fact_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"       title="Snopes最近研究的谣言和可疑说法">Fact Checks</button>
-    <button type="button" onclick="Collections()" id="snopes_collection_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary" title="Snopes文章集合">Collections</button>
-    <button type="button" onclick="News()"      id="snopes_news_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"       title="Snopes和其他人的原始报告。">News</button>
-    <button type="button" onclick="Archives()"  id="snopes_archive_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"    title="Snopes档案馆">Archives</button>
-    <button type="button" onclick="Searching()" id="snopes_search_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"     title="搜索Snopes上的文章">Searching</button>
+    <button type="button" onclick="Latest()"    id="snopes_latest_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"     title="来自Snopes编辑团队的最新事实调查和原始报告。">最新报告</button>
+    <button type="button" onclick="Hot()"       id="snopes_hot_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"        title="读者正在查看的最热流言。">最热报告</button>
+    <button type="button" onclick="Fact()"      id="snopes_fact_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"       title="最近研究的谣言和可疑说法">谣言辨别</button>
+    <button type="button" onclick="Collections()" id="snopes_collection_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary" title="查看同一话题下的的文章合集。">文章集合</button>
+    <button type="button" onclick="News()"      id="snopes_news_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"       title="Snopes和其他人的原始报告。">原始报告</button>
+    <button type="button" onclick="Archives()"  id="snopes_archive_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"    title="文章分类集合。">档案馆</button>
+    <button type="button" onclick="Searching()" id="snopes_search_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary"     title="搜索Snopes上的文章">搜索</button>
 </span>
 </div>
 
 <!--searching-->
 <div class="layui-row" id="snopes_searching_main" hidden style="padding: 2px; background-color: #F2F2F2;">
     <div class="layui-card">
-        <h3 style="padding:15px; padding-bottom: 0px;">Searching in Snopes</h3>
-        <p style="padding-left:15px;">Search Snopes.<br/>搜索Snopes上的文章。</p>
+        <h3 style="padding:15px; padding-bottom: 0px;">搜索</h3>
+        <p style="padding-left:15px;">搜索Snopes上的相关文章。</p>
         <form class="layui-form" filter="default_filter" action="" style="padding-left:15px;">
             <div class="layui-form-item">
                 <div class="layui-form-mid layui-word-aux">Please input what you want to search on Snopes.</div>
                 <input type="text" name="snopes_searching_text" required  lay-verify="required" placeholder="e.g.Global warming" autocomplete="on" class="layui-input">
-                <button class="layui-btn layui-bg-blue" style="margin-top: 10px;" lay-submit lay-filter="snopes_searching_button">Search</button>
+                <button class="layui-btn layui-bg-blue" style="margin-top: 10px;" lay-submit lay-filter="snopes_searching_button">搜索</button>
                 <div id="snopes_searching" style="margin-top: 10px;"></div>
             </div>
         </form>
@@ -42,10 +42,10 @@
 <!--latest-->
 <div class="layui-row" id="snopes_latest_main" style="padding: 2px; background-color: #F2F2F2;">
     <div class="layui-card">
-        <h3 style="padding:15px; padding-bottom: 0px;">Latest in Snopes</h3>
-        <p style="padding-left:15px;">The latest fact checks and original reporting from Snopes’ editorial team.<br/>来自Snopes编辑团队的最新事实调查和原始报告。</p>
+        <h3 style="padding:15px; padding-bottom: 0px;">最新报告</h3>
+        <p style="padding-left:15px;">来自Snopes编辑团队的最新事实调查和原始报告。</p>
         <div style="padding-left:15px; padding-bottom: 15px;">
-            <button onclick="process_latest()" id="snopes_latest_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get Latest!</button>
+            <button onclick="process_latest()" id="snopes_latest_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">获取最新报告</button>
             <div id="snopes_latest" style="margin-top: 10px;"></div>
         </div>
     </div>
@@ -54,10 +54,10 @@
 <!--hot-->
 <div class="layui-row" id="snopes_hot_main" hidden style="padding: 2px; background-color: #F2F2F2;">
     <div class="layui-card">
-        <h3 style="padding:15px; padding-bottom: 0px;">Hot 50 in Snopes</h3>
-        <p style="padding-left:15px;">The top rumors Snopes readers are checking out right now.<br/>Snopes读者正在查看的最热流言。</p>
+        <h3 style="padding:15px; padding-bottom: 0px;">最热报告</h3>
+        <p style="padding-left:15px;">Snopes读者正在查看的最热流言。</p>
         <div style="padding-left:15px; padding-bottom: 15px;">
-            <button onclick="process_hot()" id="snopes_hot_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get Hot!</button>
+            <button onclick="process_hot()" id="snopes_hot_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">获取最热报告</button>
             <div id="snopes_hot" style="margin-top: 10px;"></div>
         </div>
     </div>
@@ -66,10 +66,10 @@
 <!--fact-->
 <div class="layui-row" id="snopes_fact_main" hidden style="padding: 2px; background-color: #F2F2F2;">
     <div class="layui-card">
-        <h3 style="padding:15px; padding-bottom: 0px;">Fact Check</h3>
-        <p style="padding-left:15px;">Rumors and questionable claims we have researched recently.<br/>Snopes最近研究的谣言和可疑说法。</p>
+        <h3 style="padding:15px; padding-bottom: 0px;">谣言辨别</h3>
+        <p style="padding-left:15px;">Snopes最近研究的谣言和可疑说法。</p>
         <div style="padding-left:15px; padding-bottom: 15px;">
-            <button onclick="process_fact()" id="snopes_fact_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get fact!</button>
+            <button onclick="process_fact()" id="snopes_fact_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">谣言辨别</button>
             <div id="snopes_fact" style="margin-top: 10px;"></div>
         </div>
     </div>
@@ -78,10 +78,10 @@
 <!--collections-->
 <div class="layui-row" id="snopes_collections_main" hidden style="padding: 2px; background-color: #F2F2F2;">
     <div class="layui-card">
-        <h3 style="padding:15px; padding-bottom: 0px;">Collections</h3>
-        <p style="padding-left:15px;">Facts are always stronger in groups.<br/>Snopes文章合集。</p>
+        <h3 style="padding:15px; padding-bottom: 0px;">文章集合</h3>
+        <p style="padding-left:15px;">查看同一话题下的的文章合集。</p>
         <div style="padding-left:15px; padding-bottom: 15px;">
-            <button onclick="process_collections()" id="snopes_collections_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get Collections!</button>
+            <button onclick="process_collections()" id="snopes_collections_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">获取文章集合</button>
             <div id="snopes_collections" style="margin-top: 10px;"></div>
         </div>
     </div>
@@ -90,10 +90,10 @@
 <!--news-->
 <div class="layui-row" id="snopes_news_main" hidden style="padding: 2px; background-color: #F2F2F2;">
     <div class="layui-card">
-        <h3 style="padding:15px; padding-bottom: 0px;">News in Snopes</h3>
-        <p style="padding-left:15px;">Original reporting from Snopes and others.<br/>Snopes和其他人的原始报告。</p>
+        <h3 style="padding:15px; padding-bottom: 0px;">原始报告</h3>
+        <p style="padding-left:15px;">Snopes和其他人的原始报告。</p>
         <div style="padding-left:15px; padding-bottom: 15px;">
-            <button onclick="process_news()" id="snopes_news_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get News!</button>
+            <button onclick="process_news()" id="snopes_news_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">获取原始报告</button>
             <div id="snopes_news" style="margin-top: 10px;"></div>
         </div>
     </div>
@@ -102,10 +102,10 @@
 <!--archives-->
 <div class="layui-row" id="snopes_archives_main" hidden style="padding: 2px; background-color: #F2F2F2;">
     <div class="layui-card">
-        <h3 style="padding:15px; padding-bottom: 0px;">Archives</h3>
-        <p style="padding-left:15px;">Everything of snopes.<br/>Snopes档案馆。</p>
+        <h3 style="padding:15px; padding-bottom: 0px;">档案馆</h3>
+        <p style="padding-left:15px;">文章分类集合。</p>
         <div style="padding-left:15px; padding-bottom: 15px;">
-            <button onclick="process_archives()" id="snopes_archives_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">Get Archives!</button>
+            <button onclick="process_archives()" id="snopes_archives_button" class="layui-btn layui-bg-blue" style="margin-top: 10px;">获取档案馆</button>
             <div id="snopes_archives" style="margin-top: 10px;"></div>
         </div>
     </div>

@@ -1,0 +1,96 @@
+<div style="padding-bottom:15px">
+    <a href="https://www.melissa.com/v2/lookups/propertyviewer/zipcode/" target="_blank" rel="noopener noreferrer" title="https://www.melissa.com/v2/lookups/propertyviewer/zipcode/"><h2><b>地图查询</b></h2></a>
+</div>
+
+<div class="layui-row" style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <div style="padding:15px;"><p>我们可以根据邮政编码为您查询地图。</p></div>
+    </div>
+</div>
+
+<!--subnavigation-->
+<div style="padding-top:15px; padding-bottom:15px;">
+<span class="layui-breadcrumb" lay-separator="" style="visibility: visible;">
+    <!--<button type="button" onclick="chn()"  id="chn_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary" title="Snopes档案馆">中国地图</button>
+    --><button type="button" onclick="us()" id="us_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary" title="搜索Snopes上的文章">美国地图</button>
+</span>
+</div>
+
+<div class="layui-row" id="chn_main" hidden style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">中国地图</h3>
+        <p style="padding-left:15px;">根据输入的邮政编码查询地图。</p>
+        <form class="layui-form" filter="default_filter" action="" style="padding-left:15px;">
+            <div class="layui-form-item">
+                <div class="layui-form-mid layui-word-aux">请输入邮政编码</div>
+                <input type="text" name="chn_zipcode" required  lay-verify="required" placeholder="e.g.100084" autocomplete="on" class="layui-input">
+                <button class="layui-btn layui-bg-blue" style="margin-top: 10px;" lay-submit lay-filter="chn_button">查询</button>
+                <div id="chn_map" style="margin-top: 10px;"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="layui-row" id="us_main" style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">美国地图</h3>
+        <p style="padding-left:15px;">根据输入的美国邮政编码查询地图。</p>
+        <form class="layui-form" filter="default_filter" action="" style="padding-left:15px;">
+            <div class="layui-form-item">
+                <div class="layui-form-mid layui-word-aux">请输入邮政编码</div>
+                <input type="text" name="us_zipcode" required  lay-verify="required" placeholder="e.g.02138" autocomplete="on" class="layui-input">
+                <button class="layui-btn layui-bg-blue" style="margin-top: 10px;" lay-submit lay-filter="us_button">查询</button>
+                <div id="us_map" style="margin-top: 10px;"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function chn() {
+        $("#chn_main").show()
+        $("#us_main").hide()
+    }
+    function us() {
+        $("#us_main").show()
+        $("#chn_main").hide()
+    }
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+    layui.use('form', function(){
+        var form = layui.form;
+        form.on('submit(chn_button)', function(data){
+            $("#chn_map").text("Please wait a moment...");
+            $.ajax({ 
+                url:'/tools/Map/chn',   
+                method:'post', 
+				data:data.field,
+                dataType:'text',
+                success:function(receive){   
+                    $("#chn_map").html(receive);
+                },
+                error:function(){
+                    $("#chn_map").text("Error occurs in java service.");
+                }
+			});
+            return false;
+        });
+        form.on('submit(us_button)', function(data){
+            $("#us_map").text("Please wait a moment...");
+            $.ajax({ 
+                url:'/tools/Map/us',   
+                method:'post', 
+				data:data.field,
+                dataType:'text',
+                success:function(receive){   
+                    $("#us_map").html(receive);
+                },
+                error:function(){
+                    $("#us_map").text("Error occurs in java service.");
+                }
+			});
+            return false;
+        });
+    });
+</script>

@@ -4,12 +4,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.alibaba.fastjson.JSON;
+
 
 import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -20,104 +24,131 @@ public class IntelligenceApplication {
 		SpringApplication.run(IntelligenceApplication.class, args);
 	}
 
-    @RequestMapping(value = "home", method = RequestMethod.GET)
-    public String process_controller_home() {
+    @GetMapping(value = "")
+    public String init() {
+        System.out.println("[INFO]Welcome!");
+        return "00_Platform";
+    }
+
+    @GetMapping(value = "home")
+    public String init_home() {
         System.out.println("[INFO]Welcome!");
         return "00_Platform";
     }
 
 
-    @RequestMapping(value = "tools", method = RequestMethod.GET)
+    @GetMapping(value = "tools")
     public String init_tools() {
         return "01_tools";
     }
 
-    @RequestMapping(value = "tools/Snopes", method = RequestMethod.GET)
+    @GetMapping(value = "tools/Snopes")
     public String init_tools_snopes() {
         return "tools/Snopes";
     }
-    /*
-    @RequestMapping(value = "tools/Snopes/{feature}", method = RequestMethod.POST)
-    @ResponseBody
-    public String process_tools_snopes(@PathVariable("feature") String feature, @RequestParam("snopes_searching_text") String snopes_searching) throws IOException{
-        System.out.println("[INFO]Begin getting " + feature + " ...");
-        String result = ProcessPython.process_snopes_searching(snopes_searching);
-        System.out.println("[SUCCESS]Get " + feature + "complete!");
-        return result;
-    }*/
-    @RequestMapping(value = "tools/Snopes/searching", method = RequestMethod.POST)
+    
+    @PostMapping(value = "tools/Snopes/searching")
     @ResponseBody
     public String tools_snopes_searching(@RequestParam("snopes_searching_text") String snopes_searching) throws IOException{
-        return ProcessPython.process_snopes_searching(snopes_searching);
+        return UseCrawler.process_snopes_searching(snopes_searching);
     }
-    @RequestMapping(value = "tools/Snopes/latest", method = RequestMethod.POST)
+    @PostMapping(value = "tools/Snopes/latest")
     @ResponseBody
     public String tools_snopes_latest(){
-        return ProcessPython.process_snopes_latest();
+        return UseCrawler.process_snopes_latest();
     }
-    @RequestMapping(value = "tools/Snopes/hot", method = RequestMethod.POST)
+    @PostMapping(value = "tools/Snopes/hot")
     @ResponseBody
     public String tools_snopes_hot(){
-        return ProcessPython.process_snopes_hot();
+        return UseCrawler.process_snopes_hot();
     }
-    @RequestMapping(value = "tools/Snopes/fact", method = RequestMethod.POST)
+    @PostMapping(value = "tools/Snopes/fact")
     @ResponseBody
     public String tools_snopes_fact(){
-        return ProcessPython.process_snopes_fact();
+        return UseCrawler.process_snopes_fact();
     }
-    @RequestMapping(value = "tools/Snopes/collections", method = RequestMethod.POST)
+    @PostMapping(value = "tools/Snopes/collections")
     @ResponseBody
     public String tools_snopes_collections(){
-        return ProcessPython.process_snopes_collections();
+        return UseCrawler.process_snopes_collections();
     }
-    @RequestMapping(value = "tools/Snopes/news", method = RequestMethod.POST)
+    @PostMapping(value = "tools/Snopes/news")
     @ResponseBody
     public String tools_snopes_news(){
-        return ProcessPython.process_snopes_news();
+        return UseCrawler.process_snopes_news();
     }
-    @RequestMapping(value = "tools/Snopes/archives", method = RequestMethod.POST)
+    @PostMapping(value = "tools/Snopes/archives")
     @ResponseBody
     public String tools_snopes_archives(){
-        return ProcessPython.process_snopes_archives();
+        return UseCrawler.process_snopes_archives();
     }
 
 
 
-    @RequestMapping(value = "tools/Melissa", method = RequestMethod.GET)
-    public String init_tools_melissa() {
-        return "tools/Melissa";
+    @GetMapping(value = "tools/Map")
+    public String init_tools_map() {
+        return "tools/Map";
     }
-    @RequestMapping(value = "tools/Melissa/zipcode", method = RequestMethod.POST)
+    @PostMapping(value = "tools/Map/chn")
     @ResponseBody
-    public String tools_melissa_zipcode(@RequestParam("melissa_zipcode") String zipcode) throws IOException{
-        return ProcessPython.process_melissa_zipcode(zipcode);
+    public String tools_map_chn(@RequestParam("chn_zipcode") String zipcode) throws IOException{
+        return UseCrawler.process_map_chn(zipcode);
+    }
+    @PostMapping(value = "tools/Map/us")
+    @ResponseBody
+    public String tools_map_us(@RequestParam("us_zipcode") String zipcode) throws IOException{
+        return UseCrawler.process_map_us(zipcode);
     }
 
-    @RequestMapping(value = "tools/GoogleTrends", method = RequestMethod.GET)
+
+    //Service
+    @GetMapping(value = "service")
+    public String init_service() {
+        return "03_service";
+    }
+    //Grobid
+    @GetMapping(value = "service/Grobid")
+    public String init_service_grobid() {
+        return "service/Grobid";
+    }
+    @PostMapping(value = "service/Grobid/header")
+    @ResponseBody
+    public JSON service_grobid_header(MultipartFile file) {
+        return UseGrobid.header(file);
+    }
+    /*@PostMapping(value = "service/Grobid/fulltext")
+    @ResponseBody
+    public JSON service_grobid_fulltext(MultipartFile file) {
+        return UseGrobid.fulltext(file);
+    }
+    @PostMapping(value = "service/Grobid/reference")
+    @ResponseBody
+    public JSON service_grobid_reference(MultipartFile file) {
+        return UseGrobid.reference(file);
+    }*/
+    
+
+
+    @GetMapping(value = "database")
+    public String init_database() {
+        return "02_database";
+    }
+    @GetMapping(value = "tools/GoogleTrends")
     public String init_tools_googletrends() {
         return "tools/GoogleTrends";
     }
-    @RequestMapping(value = "tools/TalkWalker", method = RequestMethod.GET)
+    @GetMapping(value = "tools/TalkWalker")
     public String init_tools_talkwalker() {
         return "tools/TalkWalker";
     }
 
-    @RequestMapping(value = "database", method = RequestMethod.GET)
-    public String init_database() {
-        return "02_database";
-    }
 
-    @RequestMapping(value = "service", method = RequestMethod.GET)
-    public String init_service() {
-        return "03_service";
-    }
-
-    @RequestMapping(value = "application", method = RequestMethod.GET)
+    @GetMapping(value = "application")
     public String init_application() {
         return "04_application";
     }
 
-    @RequestMapping(value = "contact", method = RequestMethod.GET)
+    @GetMapping(value = "contact")
     public String init_contact() {
         return "05_contact";
     }
