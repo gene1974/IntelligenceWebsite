@@ -1,0 +1,133 @@
+<div style="padding-bottom:15px">
+    <h2><b>论文解析</b></h2></a>
+</div>
+
+<div class="layui-row" style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <div style="padding:15px;"><p>我们可以为您实现论文的解析。</p></div>
+    </div>
+</div>
+
+<!--subnavigation-->
+<div style="padding-top:15px; padding-bottom:15px;">
+    <span class="layui-breadcrumb" lay-separator="" style="visibility: visible;">
+        <button type="button" onclick="header()"  id="header_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary" title="Snopes档案馆">解析头部</button>
+        <!--<button type="button" onclick="fulltext()"  id="fulltext_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary" title="Snopes档案馆">解析正文</button>
+        <button type="button" onclick="reference()" id="reference_button" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-primary" title="搜索Snopes上的文章">解析参考</button>-->
+    </span>
+</div>
+
+<div class="layui-row" id="grobid_header" style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">论文头部结构解析</h3>
+        <p style="padding-left:15px;">实现对论文头部结构的解析，包括标题、作者、关键词、摘要。</p>
+        <div style="padding-left:15px;">
+            <button class="layui-btn layui-bg-blue" style="margin-top: 10px;" id="grobid_header_button">上传论文</button>
+        </div>
+        <div id="header_xml" style="padding:15px; margin-top: 10px;"></div>
+    </div>
+</div>
+<div class="layui-row" id="grobid_fulltext" hidden style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">论文正文结构解析</h3>
+        <p style="padding-left:15px;">实现对论文正文结构的解析，展示所有章节标题。</p>
+        <div style="padding-left:15px;">
+            <button class="layui-btn layui-bg-blue" style="margin-top: 10px;" id="grobid_fulltext_button">上传论文</button>
+        </div>
+        <div id="fulltext_xml" style="padding:15px; margin-top: 10px;"></div>
+    </div>
+</div>
+<div class="layui-row" id="grobid_reference" hidden style="padding: 2px; background-color: #F2F2F2;">
+    <div class="layui-card">
+        <h3 style="padding:15px; padding-bottom: 0px;">论文参考文献解析</h3>
+        <p style="padding-left:15px;">实现对论文参考文献的解析。</p>
+        <div style="padding-left:15px;">
+            <button class="layui-btn layui-bg-blue" style="margin-top: 10px;" id="grobid_reference_button">上传论文</button>
+        </div>
+        <div id="reference_xml" style="padding:15px; margin-top: 10px;"></div>
+    </div>
+</div>
+
+<script>
+    function header() {
+        $("#grobid_header").show()
+        $("#grobid_fulltext").hide()
+        $("#grobid_reference").hide()
+    }
+    function fulltext() {
+        $("#grobid_fulltext").show()
+        $("#grobid_header").hide()
+        $("#grobid_reference").hide()
+    }
+    function reference() {
+        $("#grobid_reference").show()
+        $("#grobid_header").hide()
+        $("#grobid_fulltext").hide()
+    }
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        var uploadHeader = upload.render({
+            elem: '#grobid_header_button',
+            accept: 'file',
+            acceptMime: 'file/pdf',
+            exts: 'pdf',
+            url: 'service/Grobid/header',
+            method: 'post',
+            before: function(){
+                $("#header_xml").text("Requesting server...");
+                $('#grobid_header_button').addClass("layui-btn-disabled")
+            },
+            done: function(receive){
+                $("#header_xml").html(receive.html)
+                $('#grobid_header_button').removeClass("layui-btn-disabled")
+            },
+            error: function(receive){
+                $("#header_xml").text("Error")
+                $('#grobid_header_button').removeClass("layui-btn-disabled")
+            }
+        });
+        var uploadFulltext = upload.render({
+            elem: '#grobid_fulltext_button',
+            accept: 'file',
+            acceptMime: 'file/pdf',
+            exts: 'pdf',
+            url: 'service/Grobid/fulltext',
+            method: 'post',
+            before: function(){
+                $("#fulltext_xml").text("Requesting server...");
+                $('#grobid_fulltext_button').addClass("layui-btn-disabled")
+            },
+            done: function(receive){
+                $("#fulltext_xml").html(receive.html)
+                $('#grobid_fulltext_button').removeClass("layui-btn-disabled")
+            },
+            error: function(receive){
+                $("#fulltext_xml").text("Error")
+                $('#grobid_fulltext_button').removeClass("layui-btn-disabled")
+            }
+        });
+        var uploadReference = upload.render({
+            elem: '#grobid_reference_button',
+            accept: 'file',
+            acceptMime: 'file/pdf',
+            exts: 'pdf',
+            url: 'service/Grobid/reference',
+            method: 'post',
+            before: function(){
+                $("#reference_xml").text("Requesting server...");
+                $('#grobid_reference_button').addClass("layui-btn-disabled")
+            },
+            done: function(receive){
+                $("#reference_xml").html(receive.html)
+                $('#grobid_reference_button').removeClass("layui-btn-disabled")
+            },
+            error: function(receive){
+                $("#reference_xml").text("Error")
+                $('#grobid_reference_button').removeClass("layui-btn-disabled")
+            }
+        });
+    });
+</script>
